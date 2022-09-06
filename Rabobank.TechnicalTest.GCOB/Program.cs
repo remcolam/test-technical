@@ -1,5 +1,5 @@
-using Swashbuckle.AspNetCore.SwaggerUI;
 using Rabobank.TechnicalTest.GCOB.ServiceExtensions;
+using Swashbuckle.AspNetCore.SwaggerUI;
 using System.Reflection;
 
 

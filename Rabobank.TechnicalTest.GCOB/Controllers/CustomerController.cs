@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Rabobank.TechnicalTest.GCOB.Dtos;
 using Rabobank.TechnicalTest.GCOB.Services.Contracts;
 
 namespace Rabobank.TechnicalTest.GCOB.Controllers;
