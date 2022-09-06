@@ -1,33 +1,41 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using Rabobank.TechnicalTest.GCOB.Dtos;
+using Rabobank.TechnicalTest.GCOB.Services.Contracts;
 
-namespace Rabobank.TechnicalTest.GCOB.Controllers
+namespace Rabobank.TechnicalTest.GCOB.Controllers;
+
+[ApiController]
+[Route("[controller]")]
+public class CustomerController : ControllerBase
 {
-    [ApiController]
-    [Route("[controller]")]
-    public class CustomerController : ControllerBase
-    {
-        private readonly ILogger<CustomerController> _logger;
+	private readonly ILogger<CustomerController> _logger;
+	private readonly ICustomerService _customerService;
 
-        public CustomerController(ILogger<CustomerController> logger)
-        {
-            _logger = logger;
-        }
+	public CustomerController(ILogger<CustomerController> logger, ICustomerService customerService)
+	{
+		_logger = logger;
+		_customerService = customerService;
+	}
 
-        [HttpGet]
-        public IEnumerable<Customer> Get()
-        {
-            throw new NotImplementedException();
-        }
+	[HttpGet("{identity}")]
+	[ProducesResponseType(typeof(Customer), 200)]
+	public async Task<IActionResult> Get(int identity)
+	{
+		var result = await _customerService.GetByIdentityAsync(identity);
 
-        [HttpPost]
-        public Customer Post()
-        {
-            throw new NotImplementedException();
-        }
-    }
+		return result.IsSuccess
+			? this.Ok(result.Value)
+			: this.NotFound(result.Error);
+	}
+
+	[HttpPost]
+	[ProducesResponseType(typeof(Customer), 200)]
+	public async Task<IActionResult> Post(Customer customer)
+	{
+		var result = await _customerService.StoreAsync(customer);
+
+		return result.IsSuccess
+			? this.Ok(result.Value)
+			: this.NotFound(result.Error);
+	}
 }
