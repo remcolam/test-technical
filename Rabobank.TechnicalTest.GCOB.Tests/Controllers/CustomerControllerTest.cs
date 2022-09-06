@@ -34,9 +34,9 @@ public class CustomerControllerTest
 		{
 			FirstName = "Remco",
 			LastName = "Lam",
-			Street = "Dassenlaan 10",
-			City = "Hilversum",
-			Postcode = "1216EK",
+			Street = "Ergensstraat 10",
+			City = "Utregio",
+			Postcode = "54321EK",
 			Country = "Netherlands"
 		};
 
